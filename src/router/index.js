@@ -14,6 +14,16 @@ const router = createRouter({
       name: "servicos",
       component: () => import("../views/ServicosView.vue"),
     },
+    {
+      path: "/pedir_reparacao",
+      name: "pedir_reparacao",
+      component: () => import("../views/PedirReparacaoView.vue"),
+    },
+    {
+      path: "/minhas_reparacoes",
+      name: "minhas_reparacoes",
+      component: () => import("../views/MinhasReparacoesView.vue"),
+    },
   ],
 });
 
