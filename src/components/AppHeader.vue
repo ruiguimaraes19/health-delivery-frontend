@@ -23,8 +23,8 @@
           </li>
           
           <li class="nav-item ms-lg-3">
-            <router-link to="/perfil" class="btn bg-white fw-bold px-4 rounded-pill" style="color: #006D4A;">
-              <i class="bi bi-person-circle me-1"></i> Emanuel
+            <router-link to="/login" class="btn btn-light rounded-pill px-4 fw-bold text-success">
+              <i class="bi bi-person-circle me-1"></i> Iniciar Sessão
             </router-link>
           </li>
         </ul>
