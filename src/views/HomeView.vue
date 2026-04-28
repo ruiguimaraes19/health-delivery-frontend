@@ -8,7 +8,7 @@ import heroImg from "@/assets/home/foto.png"; // Garante que a imagem do colega 
       <div class="container hero-wrap">
         
         <div class="hero-image">
-          <img :src="heroImg" alt="Health Delivery" />
+          <img :src="heroImg" alt="Health Delivery" class="img-fluid imagem-flutuante" />
         </div>
 
         <div class="hero-metrics">
@@ -124,6 +124,18 @@ import heroImg from "@/assets/home/foto.png"; // Garante que a imagem do colega 
   border-radius: 0 !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+.imagem-flutuante {
+  animation: flutuar 4s ease-in-out infinite;
+  /* Uma sombra suave por baixo para dar a ilusão de altura */
+  filter: drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.15)); 
+}
+
+@keyframes flutuar {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); } /* Sobe 20 pixeis */
+  100% { transform: translateY(0px); }
 }
 
 /* métricas à direita */
