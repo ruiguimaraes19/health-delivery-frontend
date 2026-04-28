@@ -1,3 +1,7 @@
+<script setup>
+import { loja } from '@/store.js'
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006D4A;">
     <div class="container">
@@ -21,6 +25,15 @@
           <li class="nav-item">
             <router-link class="nav-link text-white fw-semibold" to="/encomendas">Encomendas</router-link>
           </li>
+
+          <router-link to="/carrinho" class="nav-link position-relative mx-2">
+            <i class="bi bi-cart3 fs-4 text-brand"></i>
+            <span v-if="loja.totalItens > 0" 
+                class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" 
+                style="font-size: 0.6rem;">
+              {{ loja.totalItens }}
+            </span>
+          </router-link>
           
           <li class="nav-item ms-lg-3">
             <router-link to="/login" class="btn btn-light rounded-pill px-4 fw-bold text-success">
@@ -37,4 +50,5 @@
 .nav-link:hover {
   opacity: 0.8;
 }
+.text-success { color: #006D4A !important; }
 </style>

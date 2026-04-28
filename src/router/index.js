@@ -20,29 +20,37 @@ const router = createRouter({
       component: () => import('../views/OrdersView.vue')
     },
     {
-      // A tua versão do Catálogo
       path: '/catalogo',
       name: 'catalogo',
       component: () => import('../views/CatalogView.vue')
     },
     {
-      // A tua versão dos Serviços (que já inclui o Pedido de Reparação)
+      // 1. Página Principal de Serviços
       path: '/servicos',
       name: 'servicos',
-      component: () => import('../views/RepairsView.vue')
+      component: () => import('../views/ServicosView.vue')
     },
-    // ==========================================
-    // Rotas criadas pelo teu colega (Gonçalo)
-    // ==========================================
     {
+      // 2. Página para Pedir uma nova Reparação
       path: "/pedir_reparacao",
       name: "pedir_reparacao",
       component: () => import("../views/PedirReparacaoView.vue")
     },
     {
+      // 3. Página para listar as Reparações do utilizador
       path: "/minhas_reparacoes",
       name: "minhas_reparacoes",
       component: () => import("../views/MinhasReparacoesView.vue")
+    },
+    {
+      path: '/produto/:id',
+      name: 'detalhe_produto',
+      component: () => import('../views/ProductDetailView.vue')
+    },
+    {
+      path: '/carrinho',
+      name: 'carrinho',
+      component: () => import('../views/CartView.vue')
     }
   ]
 });
