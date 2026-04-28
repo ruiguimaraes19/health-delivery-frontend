@@ -141,19 +141,6 @@
       </div>
     </section>
 
-    <!-- BARRA FINAL (rodapé verde) -->
-    <footer class="footer-bar">
-      <div class="container footer-bar-inner">
-        <div class="footer-logos" aria-label="Entidades e financiadores">
-          <span class="footer-logo">PRR</span>
-          <span class="footer-logo">República Portuguesa</span>
-          <span class="footer-logo">NextGenerationEU</span>
-          <span class="footer-logo">Portugal 2030</span>
-        </div>
-        <p class="footer-note">© 2026 Health Delivery</p>
-      </div>
-    </footer>
-
   </main>
 </template>
 

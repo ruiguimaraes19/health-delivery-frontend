@@ -212,12 +212,6 @@
       </div>
     </section>
 
-    <!-- BARRA FINAL -->
-    <footer class="footer-bar">
-      <div class="container footer-bar-inner">
-        <p class="footer-note">© 2026 Health Delivery</p>
-      </div>
-    </footer>
   </main>
 </template>
 
