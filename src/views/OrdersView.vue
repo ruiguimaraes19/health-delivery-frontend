@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-// Dados da encomenda em curso (para o Modal)
+// Dados da encomenda em curso
 const encomendaSelecionada = ref({
   id: 'GE-2026-0847',
   tipo: 'Urgente (30 min)',
@@ -19,6 +19,17 @@ const encomendaSelecionada = ref({
     entregas: '325 entregas'
   }
 });
+
+// Novo estado para controlar o mapa limpo
+const showMap = ref(false);
+
+function openMap() {
+  showMap.value = true;
+}
+
+function closeMap() {
+  showMap.value = false;
+}
 </script>
 
 <template>
@@ -53,7 +64,7 @@ const encomendaSelecionada = ref({
       </div>
     </div>
 
-    <h4 class="fw-bold text-brand mb-3">Em curso </h4>
+    <h4 class="fw-bold text-brand mb-3">Em curso</h4>
     <div class="card border-brand-subtle shadow-sm rounded-4 mb-5">
       <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div>
@@ -69,7 +80,7 @@ const encomendaSelecionada = ref({
           <p class="text-brand fw-bold mb-3">Estimativa: {{ encomendaSelecionada.tempoEstimado }}</p>
           
           <div class="d-flex gap-2 justify-content-end">
-            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#mapaModal">
+            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold" type="button" @click="openMap">
               <i class="bi bi-geo-alt"></i> Mapa
             </button>
             <button class="btn btn-brand rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#detalhesModal">
@@ -154,34 +165,42 @@ const encomendaSelecionada = ref({
       </div>
     </div>
 
-    <div class="modal fade" id="mapaModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
-          
-          <div class="modal-header border-bottom bg-white z-3 position-relative pb-3">
-            <div>
-              <h5 class="fw-bold mb-0">Rastreio {{ encomendaSelecionada.id }}</h5>
-              <p class="text-muted small mb-0 mt-1">Acompanhe a entrega em tempo real</p>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div v-if="showMap" class="overlay overlay-center" @click.self="closeMap">
+      <div class="map-modal map-modal-osm">
+        <div class="map-header">
+          <div>
+            <h3 class="map-title">Rastreio encomenda {{ encomendaSelecionada.id }}</h3>
+            <p class="map-subtitle">Acompanhe a entrega em tempo real</p>
           </div>
-          
-          <div class="modal-body p-0 position-relative bg-light">
-            <div class="map-wrapper">
-              <iframe 
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-8.48%2C41.40%2C-8.35%2C41.48&amp;layer=mapnik&amp;marker=41.44%2C-8.42" 
-                style="border: none;">
-              </iframe>
-            </div>
+          <button class="close-btn" @click="closeMap"><i class="bi bi-x-lg"></i></button>
+        </div>
 
-            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 w-75 z-3">
-              <div class="card border-0 shadow-lg rounded-pill">
-                <div class="card-body p-2 px-4 d-flex justify-content-between align-items-center">
-                  <span class="fw-bold text-dark"><i class="bi bi-clock me-1 text-muted"></i> {{ encomendaSelecionada.tempoEstimado }}</span>
-                  <span class="fw-bold text-dark"><i class="bi bi-cursor me-1 text-muted"></i> {{ encomendaSelecionada.distancia }}</span>
-                  <span class="badge bg-success-subtle text-brand rounded-pill px-3 py-2 fw-bold">{{ encomendaSelecionada.estado }}</span>
-                </div>
-              </div>
+        <div class="map-body">
+          <div class="map-wrapper">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-8.48%2C41.40%2C-8.35%2C41.48&layer=mapnik&marker=41.44%2C-8.42"
+              title="Mapa"
+              style="border:none;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div class="map-floating">
+            <div class="map-floating-card">
+              <span class="map-chip">
+                <i class="bi bi-clock me-1 text-muted"></i>
+                {{ encomendaSelecionada.tempoEstimado }}
+              </span>
+
+              <span class="map-chip">
+                <i class="bi bi-cursor me-1 text-muted"></i>
+                {{ encomendaSelecionada.distancia }}
+              </span>
+
+              <span class="map-status">
+                {{ encomendaSelecionada.estado }}
+              </span>
             </div>
           </div>
         </div>
@@ -192,6 +211,7 @@ const encomendaSelecionada = ref({
 </template>
 
 <style scoped>
+/* Estilos Originais */
 .text-brand { color: #006D4A; }
 .bg-brand { background-color: #006D4A; }
 .btn-brand {
@@ -205,18 +225,128 @@ const encomendaSelecionada = ref({
 }
 .border-brand-subtle { border: 1px solid #cce2d8; }
 
-/* TRUQUE DO MAPA: Corta as bordas do iframe onde está o "lixo" do OpenStreetMap */
+/* =========================================================
+   ESTILOS DO NOVO MAPA (Copiados das Reparações)
+   ========================================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 9999; /* Aumentado para garantir que fica por cima da navbar */
+  display: flex;
+}
+
+.overlay-center {
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.map-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #111827;
+  margin: 0;
+}
+
+.map-subtitle {
+  margin: 6px 0 0 0;
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 600;
+}
+
+.close-btn {
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.map-modal-osm {
+  width: 520px;
+  max-width: calc(100% - 24px);
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+}
+
+.map-body {
+  position: relative;
+  margin-top: 14px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
 .map-wrapper {
   width: 100%;
-  height: 450px; /* Altura visível */
-  overflow: hidden; /* Esconde o que sair fora */
+  height: 520px;
+  overflow: hidden;
   position: relative;
 }
 
 .map-wrapper iframe {
   width: 100%;
-  height: 550px; /* Maior que a caixa pai */
-  margin-top: -50px; /* Puxa o iframe para cima para esconder os links do topo */
-  margin-bottom: -50px; /* Esconde os links de baixo */
+  height: 620px;
+  margin-top: -50px;
+  margin-bottom: -50px;
+}
+
+.map-floating {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(90%, 460px);
+  z-index: 5;
+}
+
+.map-floating-card {
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-chip {
+  font-weight: 900;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.map-status {
+  font-weight: 900;
+  color: #0b6b4a; /* Teu verde brand */
+  background: rgba(0, 109, 74, 0.1); /* Fundo claro do brand */
+  border: 1px solid rgba(0, 109, 74, 0.22);
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .map-modal-osm { width: calc(100% - 20px); }
+  .map-floating-card { flex-direction: column; border-radius: 16px; text-align: center; }
 }
 </style>

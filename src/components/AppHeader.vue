@@ -1,14 +1,14 @@
 <script setup>
 import { loja } from '@/store.js'
-// IMPORTANTE: Aqui mudamos o nome do ficheiro para o novo logótipo branco
-import imgLogo from '@/assets/logotipo-branco.png' 
+// Importamos a imagem do teu logótipo (o cinzento-escuro)
+import imgLogo from '@/assets/logotipo.png' 
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #006D4A;">
     <div class="container">
       <router-link class="navbar-brand d-flex align-items-center" to="/">
-        <img :src="imgLogo" alt="Logótipo Health Delivery" height="40" class="me-2" style="object-fit: contain;">
+        <img :src="imgLogo" alt="Logótipo Health Delivery" height="48" class="me-2" style="object-fit: contain; filter: drop-shadow(0px 0px 1px white) drop-shadow(0px 0px 1px white);">
         <span class="fw-bold fs-4 text-white">Health Delivery</span>
       </router-link>
 

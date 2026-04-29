@@ -1,272 +1,188 @@
 <script setup>
-import heroImg from "@/assets/home/foto.png"; // Garante que a imagem do colega está nesta pasta
+import { ref, onMounted } from 'vue'
+
+// Variáveis para a animação dos números
+const satisfacao = ref(0)
+const entregas = ref(0)
+
+onMounted(() => {
+  // Animação para contar até 98%
+  let contador1 = 0
+  const intervalo1 = setInterval(() => {
+    if (contador1 >= 98) clearInterval(intervalo1)
+    else satisfacao.value = ++contador1
+  }, 20)
+
+  // Animação para contar até 125
+  let contador2 = 0
+  const intervalo2 = setInterval(() => {
+    if (contador2 >= 125) clearInterval(intervalo2)
+    else entregas.value = ++contador2
+  }, 15)
+})
 </script>
 
 <template>
-  <main class="home">
-    <section class="hero">
-      <div class="container hero-wrap">
+  <main class="home-page">
+    <section class="container py-5 mt-lg-5 overflow-hidden">
+      <div class="row align-items-center g-5 pt-4">
         
-        <div class="hero-image">
-          <img :src="heroImg" alt="Health Delivery" class="img-fluid imagem-flutuante" />
-        </div>
-
-        <div class="hero-metrics">
-          <div class="metric-card">
-            <div class="metric-value">98%</div>
-            <div class="metric-label">Análises<br />Positivas</div>
+        <div class="col-lg-6 animacao-texto">
+          <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-success-subtle text-success fw-bold mb-4" style="color: #006D4A !important;">
+            <span class="pulse-dot"></span> Líderes em Portugal
           </div>
-
-          <div class="metric-card">
-            <div class="metric-value">125k+</div>
-            <div class="metric-label">Entregas<br />Realizadas</div>
-          </div>
-        </div>
-
-        <div class="hero-center">
-          <h2 class="hero-title">Especialistas em Logística de Saúde</h2>
-          <p class="hero-sub">
-            Soluções adaptadas a cada necessidade do setor da saúde e bem-estar.
-          </p>
-
-          <router-link to="/encomendas" class="btn btn-hd">PEDIR AGORA</router-link>
-        </div>
-      </div>
-    </section>
-
-    <section class="container py-4">
-      <div class="pill">
-        <div class="pill-card">
-          <div class="pill-number">18 min</div>
-          <div class="pill-text">Tempo de Espera de Urgência</div>
-        </div>
-
-        <div class="pill-card">
-          <div class="pill-number">450+</div>
-          <div class="pill-text">Organizações Parceiras</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container pb-5">
-      <div class="coverage">
-        <div class="coverage-left">
-          <h3 class="coverage-title">Zonas de Cobertura</h3>
-          <p class="coverage-text">
-            Atualmente operamos em toda a Área Metropolitana de Lisboa e Grande Porto,
-            com expansão prevista para Coimbra e Braga no próximo trimestre.
+          
+          <h1 class="display-3 fw-bold text-dark mb-4 lh-sm">
+            Saúde entregue com <span class="text-highlight" style="color: #006D4A;">segurança total.</span>
+          </h1>
+          <p class="lead text-secondary mb-5 fs-5">
+            Equipamento médico e serviços de excelência à distância de um clique. Rápido, fiável e com o nosso camião sempre a caminho.
           </p>
           
-          <router-link to="/servicos" class="btn btn-outline-light btn-round text-decoration-none">
-            VER SERVIÇOS
-          </router-link>
+          <div class="d-flex flex-wrap gap-3">
+            <router-link to="/catalogo" class="btn btn-lg text-white rounded-pill px-5 py-3 fw-bold shadow-sm btn-hover" style="background-color: #006D4A;">
+              Ver Catálogo <i class="bi bi-arrow-right ms-2"></i>
+            </router-link>
+            <router-link to="/servicos" class="btn btn-lg btn-outline-dark rounded-pill px-5 py-3 fw-bold btn-hover">
+              Os nossos Serviços
+            </router-link>
+          </div>
+
+          <div class="d-flex gap-5 mt-5 pt-4 border-top">
+            <div>
+              <h2 class="display-5 fw-bold text-dark mb-0">{{ satisfacao }}%</h2>
+              <p class="text-muted fw-medium mt-1">Clientes Satisfeitos</p>
+            </div>
+            <div>
+              <h2 class="display-5 fw-bold text-dark mb-0">{{ entregas }}k+</h2>
+              <p class="text-muted fw-medium mt-1">Entregas Feitas</p>
+            </div>
+          </div>
         </div>
 
-        <div class="coverage-right">
-          <div class="map-box">
-            <span class="map-icon">📍</span>
+        <div class="col-lg-6 animacao-3d">
+          <div style="width: 100%; height: 500px; position: relative;">
+            
+            <spline-viewer 
+              url="https://prod.spline.design/jguVxw6tbd2s8wIZ/scene.splinecode" 
+              style="width: 100%; height: 100%; pointer-events: auto;">
+            </spline-viewer>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="container py-5 my-5">
+      <div class="row g-4 animacao-subir-atraso">
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
+            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
+              <i class="bi bi-stopwatch fs-3" style="color: #006D4A;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Entregas Rápidas</h4>
+            <p class="text-muted mb-0">A nossa frota está sempre em movimento para garantir que o seu material médico chega quando mais precisa.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
+            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
+              <i class="bi bi-shield-check fs-3" style="color: #006D4A;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Segurança Máxima</h4>
+            <p class="text-muted mb-0">Transportamos equipamentos sensíveis com o máximo rigor e controlo de temperatura certificado.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
+            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
+              <i class="bi bi-headset fs-3" style="color: #006D4A;"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Suporte 24/7</h4>
+            <p class="text-muted mb-0">Uma equipa dedicada pronta a ajudar a qualquer hora do dia ou da noite, todos os dias do ano.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="footer-bar">
-      <div class="container footer-inner">
-        <p class="footer-note">© 2026 Health Delivery</p>
-      </div>
-    </footer>
   </main>
 </template>
 
 <style scoped>
-/* LIMPEZA: Apagámos o teu CSS antigo que estava quebrado e mantivemos só o do colega */
-.home { background: #fff; }
-
-/* botão */
-.btn-hd{
-  background:#006d4a;
-  color:#fff;
-  font-weight:900;
-  border:none;
-  border-radius:999px;
-  padding: 12px 28px;
-  text-decoration: none;
-}
-.btn-hd:hover{ background:#00593d; color:#fff; }
-
-/* HERO */
-.hero{
-  background:#fff;
-  position:relative;
-  overflow:hidden;
+.home-page {
+  background-color: #fcfcfc;
+  min-height: 100vh;
 }
 
-.hero-wrap{
-  position:relative;
-  padding: 44px 0 36px;
-  min-height: 560px;
-  display:flex;
-  flex-direction:column;
-  gap: 22px;
+.bg-success-subtle { 
+  background-color: #e6f0eb !important; 
 }
 
-/* imagem principal */
-.hero-image{
-  width: 100%;
-  display:flex;
-  justify-content:center;
+/* Bolinha a piscar no badge */
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #006D4A;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
 }
 
-.hero-image img{
-  width: min(1100px, 100%);
-  height: auto;
-  display:block;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
+/* Efeito nos botões e cartões */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+.btn-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.imagem-flutuante {
-  animation: flutuar 4s ease-in-out infinite;
-  /* Uma sombra suave por baixo para dar a ilusão de altura */
-  filter: drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.15)); 
+.feature-card {
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: #e6f0eb;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.08) !important;
 }
 
-@keyframes flutuar {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); } /* Sobe 20 pixeis */
-  100% { transform: translateY(0px); }
+/* =========================================
+   ANIMAÇÕES CSS (Keyframes)
+   ========================================= */
+.animacao-texto {
+  opacity: 0;
+  animation: subirSuave 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* métricas à direita */
-.hero-metrics{
-  position:absolute;
-  right: 16px;
-  top: 90px;
-  display:flex;
-  flex-direction:column;
-  gap: 14px;
+.animacao-3d {
+  opacity: 0;
+  animation: deslizarDireita 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.3s; 
 }
 
-.metric-card{
-  width: 140px;
-  height: 108px;
-  border-radius: 18px;
-  background:#006d4a;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  padding:10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-}
-.metric-value{
-  font-weight:900;
-  font-size:24px;
-  line-height:1.05;
-}
-.metric-label{
-  font-weight:800;
-  font-size:12px;
-  opacity:0.92;
+.animacao-subir-atraso {
+  opacity: 0;
+  animation: subirSuave 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.6s; 
 }
 
-/* centro */
-.hero-center{
-  text-align:center;
-  max-width: 720px;
-  margin: 0 auto;
-}
-.hero-title{
-  font-weight:900;
-  color:#111827;
-  margin: 0 0 8px;
-}
-.hero-sub{
-  color: rgba(0,0,0,0.55);
-  margin: 0 0 18px;
+@keyframes subirSuave {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* cápsula */
-.pill{
-  background:#006d4a;
-  border-radius: 999px;
-  padding: 22px;
-  display:flex;
-  gap:18px;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
+@keyframes deslizarDireita {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-.pill-card{
-  background:#fff;
-  border-radius:999px;
-  padding: 18px 26px;
-  min-width: 280px;
-  text-align:center;
-  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
-}
-
-.pill-number{
-  color:#006d4a;
-  font-weight:900;
-  font-size:22px;
-}
-.pill-text{
-  color: rgba(0,0,0,0.55);
-  font-weight:800;
-  font-size:12px;
-  margin-top:4px;
-}
-
-/* cobertura */
-.coverage{
-  background:#006d4a;
-  border-radius:24px;
-  padding:34px;
-  display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap:22px;
-  align-items:center;
-  min-height:260px;
-}
-.coverage-title{ color:#fff; font-weight:900; margin:0 0 10px; }
-.coverage-text{
-  color: rgba(255,255,255,0.85);
-  font-weight:700;
-  max-width:52ch;
-  margin:0 0 16px;
-}
-.btn-round{ border-radius:999px; font-weight:900; padding:10px 18px; }
-
-.map-box{
-  width:260px;
-  height:200px;
-  border-radius:18px;
-  background: rgba(255,255,255,0.12);
-  border:1px solid rgba(255,255,255,0.18);
-  display:grid;
-  place-items:center;
-  margin-left:auto;
-}
-.map-icon{ font-size: 64px; color: rgba(255,255,255,0.75); }
-
-/* footer */
-.footer-bar{ background:#006d4a; padding:16px 0; }
-.footer-inner{ display:flex; justify-content:center; }
-.footer-note{ margin:0; color:rgba(255,255,255,0.75); font-weight:800; font-size:12px; }
-
-/* responsivo */
-@media (max-width: 992px){
-  .hero-wrap{ min-height:auto; padding: 22px 0 24px; }
-  .hero-metrics{
-    position: static;
-    flex-direction: row;
-    justify-content:center;
-    margin-top: 10px;
-  }
-  .coverage{ grid-template-columns: 1fr; }
-  .map-box{ width:100%; max-width:320px; margin: 0 auto; }
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 109, 74, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 109, 74, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 109, 74, 0); }
 }
 </style>
