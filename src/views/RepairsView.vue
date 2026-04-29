@@ -8,7 +8,7 @@
           <p class="text-muted fs-5 mb-4">
             Manutenção e reparação especializada para equipamentos adquiridos através da plataforma Health Delivery.
           </p>
-          <button v-if="!showForm" @click="showForm = true" class="btn btn-brand btn-lg rounded-pill px-4 fw-bold">
+          <button v-if="!showForm" @click="tentarReparacao" class="btn btn-brand btn-lg rounded-pill px-4 fw-bold">
             Solicitar Reparação
           </button>
         </div>
@@ -142,13 +142,29 @@
 
 <script setup>
 import { ref } from 'vue'
+import { loja } from '@/store.js' // Importamos a memória do site
+import { useRouter } from 'vue-router' // Importamos o router para redirecionar
 
+const router = useRouter()
 const showForm = ref(false)
 const prioridade = ref(3)
 
+// NOVA FUNÇÃO: O "Segurança" da porta
+const tentarReparacao = () => {
+  if (loja.usuarioLogado) {
+    // Se o utilizador estiver logado, abrimos o formulário!
+    showForm.value = true 
+  } else {
+    // Se não estiver, damos um aviso e mandamos para a página de login
+    alert("Precisa de iniciar sessão para solicitar uma reparação.")
+    router.push('/login') 
+  }
+}
+
 const submitPedido = () => {
   alert('Pedido submetido com sucesso!')
-  window.location.href = "/minhas_reparacoes";
+  // Dica: No Vue, é melhor usar router.push em vez de window.location.href
+  router.push('/reparacoes')
 }
 </script>
 

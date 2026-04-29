@@ -15,10 +15,10 @@
             
             <form @submit.prevent="fazerLogin">
               <div class="mb-3">
-                <input type="text" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Email or Username">
+                <input v-model="loginEmail" type="text" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Email or Username" required>
               </div>
               <div class="mb-4">
-                <input type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Password">
+                <input v-model="loginPassword" type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Password" required>
               </div>
               
               <button type="submit" class="btn btn-brand-light btn-lg rounded-pill w-100 fw-bold mb-2">Log In</button>
@@ -34,11 +34,11 @@
               </div>
 
               <div class="d-flex flex-column gap-3">
-                <button type="button" class="btn btn-social rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                <button type="button" @click="loginSimulado('Google User')" class="btn btn-social rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google text-danger" viewBox="0 0 16 16"><path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.06c.632 1.896 2.405 3.304 4.492 3.304 1.248 0 2.352-.367 3.213-.984.72-.516 1.21-1.278 1.344-2.142H8v-2.25h7.545z"/></svg>
                   Login with google
                 </button>
-                <button type="button" class="btn btn-social rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                <button type="button" @click="loginSimulado('Apple User')" class="btn btn-social rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
                   <i class="bi bi-apple fs-5 text-dark" style="margin-top: -3px;"></i>
                   Login with apple
                 </button>
@@ -55,20 +55,20 @@
             
             <form @submit.prevent="fazerRegisto">
               <div class="mb-3">
-                <input type="text" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Name">
+                <input v-model="registoNome" type="text" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Name" required>
               </div>
               <div class="mb-3">
-                <input type="email" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Email">
+                <input v-model="registoEmail" type="email" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Email" required>
               </div>
               <div class="mb-3">
-                <input type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Password">
+                <input type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Password" required>
               </div>
               <div class="mb-3">
-                <input type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Confirm Password">
+                <input type="password" class="form-control form-control-lg rounded-pill border-0 custom-input" placeholder="Confirm Password" required>
               </div>
               <div class="mb-4">
-                <select class="form-select form-select-lg rounded-pill border-0 custom-input">
-                  <option selected disabled>Role</option>
+                <select class="form-select form-select-lg rounded-pill border-0 custom-input" required>
+                  <option value="" disabled selected>Role</option>
                   <option value="cliente">Cliente (Particular)</option>
                   <option value="hospital">Instituição / Hospital</option>
                 </select>
@@ -106,18 +106,46 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { loja } from '@/store.js' // A MAGIA COMEÇA AQUI: Importar a store
 
 const router = useRouter()
-const isLogin = ref(true) // Controla se estamos a ver o Login (true) ou Registo (false)
+const isLogin = ref(true)
 
+// Variáveis para guardar o que o utilizador escreve nos inputs (v-model)
+const loginEmail = ref('')
+const loginPassword = ref('')
+
+const registoNome = ref('')
+const registoEmail = ref('')
+
+// Função quando o utilizador clica em "Log In"
 const fazerLogin = () => {
-  // Simulação de login - Redireciona para a página de Encomendas
-  router.push('/encomendas')
+  // Extrai o nome antes do '@' do email para mostrar no botão do Header
+  let parteEmail = loginEmail.value.split('@')[0]
+  let nomeApresentacao = parteEmail.charAt(0).toUpperCase() + parteEmail.slice(1)
+  
+  // 1. Guarda o utilizador na memória (altera o Header!)
+  loja.login(nomeApresentacao)
+  
+  // 2. Redireciona para a página principal
+  router.push('/')
 }
 
+// Função quando o utilizador clica em "Sign Up"
 const fazerRegisto = () => {
-  alert('Conta criada com sucesso!')
-  isLogin.value = true
+  // O utilizador acabou de se registar, por isso fazemos login automático com o nome que ele escolheu
+  
+  // 1. Guarda o utilizador na memória com o Nome verdadeiro
+  loja.login(registoNome.value)
+  
+  // 2. Redireciona para a página principal
+  router.push('/')
+}
+
+// Função de atalho para os botões sociais (Google / Apple)
+const loginSimulado = (nome) => {
+  loja.login(nome)
+  router.push('/')
 }
 </script>
 
@@ -149,6 +177,12 @@ const fazerRegisto = () => {
 .custom-input::placeholder {
   color: #006D4A;
   opacity: 0.8;
+}
+/* Altera a cor de fundo do input quando selecionado */
+.custom-input:focus {
+  background-color: #f1f8f5;
+  box-shadow: none;
+  outline: none;
 }
 
 /* Botões Sociais */

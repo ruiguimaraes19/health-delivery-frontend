@@ -1,19 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// Variáveis para a animação dos números
 const satisfacao = ref(0)
 const entregas = ref(0)
 
 onMounted(() => {
-  // Animação para contar até 98%
   let contador1 = 0
   const intervalo1 = setInterval(() => {
     if (contador1 >= 98) clearInterval(intervalo1)
     else satisfacao.value = ++contador1
   }, 20)
 
-  // Animação para contar até 125
   let contador2 = 0
   const intervalo2 = setInterval(() => {
     if (contador2 >= 125) clearInterval(intervalo2)
@@ -62,47 +59,129 @@ onMounted(() => {
 
         <div class="col-lg-6 animacao-3d">
           <div style="width: 100%; height: 500px; position: relative;">
-            
-            <spline-viewer 
-              url="https://prod.spline.design/jguVxw6tbd2s8wIZ/scene.splinecode" 
-              style="width: 100%; height: 100%; pointer-events: auto;">
-            </spline-viewer>
-
+          
+          <spline-viewer url="https://prod.spline.design/jguVxw6tbd2s8wIZ/scene.splinecode"></spline-viewer>
           </div>
         </div>
 
       </div>
     </section>
 
-    <section class="container py-5 my-5">
+    <section class="py-5 my-5 bg-white border-top border-bottom">
+      <div class="container py-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <h6 class="text-uppercase fw-bold mb-3" style="color: #006D4A; letter-spacing: 2px;">Sobre a Empresa</h6>
+            <h2 class="display-5 fw-bold text-dark mb-4">Mais do que logística, entregamos vida.</h2>
+            <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
+              Fundada em 2018, a Health Delivery nasceu com uma missão clara: colmatar a lacuna entre a tecnologia médica de ponta e as unidades de saúde que dela necessitam urgentemente. 
+            </p>
+            <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
+              Trabalhamos com os maiores fornecedores europeus e operamos uma frota certificada com controlo de temperatura rigoroso, garantindo que nenhum equipamento falha quando a sua saúde não pode esperar.
+            </p>
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-3 fw-bold text-dark">
+              <li><i class="bi bi-check-circle-fill fs-5 me-2" style="color: #006D4A;"></i> Certificação ISO 9001 de Transporte Médico</li>
+              <li><i class="bi bi-check-circle-fill fs-5 me-2" style="color: #006D4A;"></i> Cobertura em 100% do território nacional</li>
+              <li><i class="bi bi-check-circle-fill fs-5 me-2" style="color: #006D4A;"></i> Técnicos especializados em montagem hospitalar</li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Hospital Logistics" class="img-fluid rounded-4 shadow-lg" style="object-fit: cover; height: 500px; width: 100%;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container py-5 my-3">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark">Porquê escolher-nos?</h2>
+        <p class="text-muted">A excelência faz parte da nossa rotina diária.</p>
+      </div>
       <div class="row g-4 animacao-subir-atraso">
         <div class="col-md-4">
-          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
-            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
-              <i class="bi bi-stopwatch fs-3" style="color: #006D4A;"></i>
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card text-center">
+            <div class="icon-box mb-3 mx-auto d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 70px; height: 70px;">
+              <i class="bi bi-stopwatch fs-2" style="color: #006D4A;"></i>
             </div>
             <h4 class="fw-bold mb-3">Entregas Rápidas</h4>
             <p class="text-muted mb-0">A nossa frota está sempre em movimento para garantir que o seu material médico chega quando mais precisa.</p>
           </div>
         </div>
-        
         <div class="col-md-4">
-          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
-            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
-              <i class="bi bi-shield-check fs-3" style="color: #006D4A;"></i>
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card text-center">
+            <div class="icon-box mb-3 mx-auto d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 70px; height: 70px;">
+              <i class="bi bi-shield-check fs-2" style="color: #006D4A;"></i>
             </div>
             <h4 class="fw-bold mb-3">Segurança Máxima</h4>
             <p class="text-muted mb-0">Transportamos equipamentos sensíveis com o máximo rigor e controlo de temperatura certificado.</p>
           </div>
         </div>
-
         <div class="col-md-4">
-          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card">
-            <div class="icon-box mb-3 d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 60px; height: 60px;">
-              <i class="bi bi-headset fs-3" style="color: #006D4A;"></i>
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100 feature-card text-center">
+            <div class="icon-box mb-3 mx-auto d-flex align-items-center justify-content-center rounded-circle" style="background-color: #e6f0eb; width: 70px; height: 70px;">
+              <i class="bi bi-headset fs-2" style="color: #006D4A;"></i>
             </div>
             <h4 class="fw-bold mb-3">Suporte 24/7</h4>
             <p class="text-muted mb-0">Uma equipa dedicada pronta a ajudar a qualquer hora do dia ou da noite, todos os dias do ano.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light mt-5">
+      <div class="container py-4">
+        <div class="text-center mb-5">
+          <h6 class="text-uppercase fw-bold mb-2" style="color: #006D4A;">Testemunhos</h6>
+          <h2 class="fw-bold text-dark">O que dizem os nossos parceiros</h2>
+        </div>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card border-0 rounded-4 shadow-sm h-100 p-4 testimonial-card">
+              <div class="d-flex text-warning mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p class="fst-italic text-muted mb-4">"A Health Delivery revolucionou a nossa gestão de stock crítico. Em situações de emergência, os ventiladores chegaram sempre antes do tempo estimado."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <div class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center fw-bold me-3" style="width: 45px; height: 45px;">MC</div>
+                <div>
+                  <h6 class="fw-bold mb-0">Dra. Marta Costa</h6>
+                  <p class="text-muted small mb-0">Diretora Clínica, Hospital Central</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card border-0 rounded-4 shadow-sm h-100 p-4 testimonial-card">
+              <div class="d-flex text-warning mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p class="fst-italic text-muted mb-4">"O rastreio em tempo real com mapas dá-nos uma paz de espírito inestimável quando esperamos componentes caros de laboratório."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center fw-bold me-3" style="width: 45px; height: 45px;">JB</div>
+                <div>
+                  <h6 class="fw-bold mb-0">João Batista</h6>
+                  <p class="text-muted small mb-0">Gestor de Compras, LabTech</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-0 rounded-4 shadow-sm h-100 p-4 testimonial-card">
+              <div class="d-flex text-warning mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+              </div>
+              <p class="fst-italic text-muted mb-4">"Excelente serviço de reparações. A recolha é imediata e os técnicos são altamente qualificados e muito transparentes."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center fw-bold me-3" style="width: 45px; height: 45px;">SP</div>
+                <div>
+                  <h6 class="fw-bold mb-0">Sofia Pinto</h6>
+                  <p class="text-muted small mb-0">Farmácia Santos</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,11 +196,8 @@ onMounted(() => {
   min-height: 100vh;
 }
 
-.bg-success-subtle { 
-  background-color: #e6f0eb !important; 
-}
+.bg-success-subtle { background-color: #e6f0eb !important; }
 
-/* Bolinha a piscar no badge */
 .pulse-dot {
   display: inline-block;
   width: 8px;
@@ -131,10 +207,7 @@ onMounted(() => {
   animation: pulse 1.5s infinite;
 }
 
-/* Efeito nos botões e cartões */
-.btn-hover {
-  transition: all 0.3s ease;
-}
+.btn-hover { transition: all 0.3s ease; }
 .btn-hover:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -150,9 +223,15 @@ onMounted(() => {
   box-shadow: 0 1rem 3rem rgba(0,0,0,0.08) !important;
 }
 
-/* =========================================
-   ANIMAÇÕES CSS (Keyframes)
-   ========================================= */
+/* Novo estilo para os cartões de testemunho */
+.testimonial-card {
+  border-top: 4px solid #006D4A !important;
+  transition: transform 0.3s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
 .animacao-texto {
   opacity: 0;
   animation: subirSuave 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;

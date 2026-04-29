@@ -2,7 +2,7 @@
   <main class="container py-5">
     <div class="row">
       <aside class="col-lg-3 mb-4 mb-lg-0">
-        <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 2rem; background-color: #E1F2D1;">
+        <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top caixa-filtros" style="background-color: #E1F2D1;">
           <h5 class="fw-bold mb-4 text-uppercase fs-6">Filtros</h5>
           
           <div class="mb-4">
@@ -137,4 +137,17 @@ function limparFiltros() {
 
 <style scoped>
 .form-check-input:checked { background-color: #006D4A; border-color: #006D4A; }
+
+/* Correção para os filtros não baterem no cabeçalho */
+.caixa-filtros {
+  top: 90px !important; /* Dá o desconto da altura do teu cabeçalho */
+  z-index: 1000; /* Garante que fica na camada por baixo da barra de navegação */
+  max-height: calc(100vh - 110px); /* Cria scroll interno se o ecrã for muito pequeno */
+  overflow-y: auto; /* Esconde a barra de scroll até ser necessária */
+}
+
+/* Oculta a barra de scroll nativa (opcional, para ficar mais elegante) */
+.caixa-filtros::-webkit-scrollbar { width: 6px; }
+.caixa-filtros::-webkit-scrollbar-track { background: transparent; }
+.caixa-filtros::-webkit-scrollbar-thumb { background: #cce2d8; border-radius: 10px; }
 </style>
