@@ -148,7 +148,7 @@ const prioridade = ref(3)
 
 const submitPedido = () => {
   alert('Pedido submetido com sucesso!')
-  showForm.value = false
+  window.location.href = "/minhas_reparacoes";
 }
 </script>
 
